@@ -1,0 +1,28 @@
+{{#> index title="Admin Login"}}
+
+<div class="container my-5 py-5 alert-primary border">
+    <h2 class="text-center text-underline mb-3">Admin Login</h2>
+
+    <!-- LOGIN-->
+    <div class="col-lg-6 offset-lg-3">
+        <form method="POST">
+            <div class="">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Enter username..." name="username"
+                        value="{{../username}}">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter Password..." name="password">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary admin_login">Login</button>
+                </div>
+            </div>
+        </form>
+        {{> errors ErrorMessages=../ErrorMessages}}
+    </div>
+    <!-- //LOGIN-->
+</div>
+{{/index}}

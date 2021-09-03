@@ -1,0 +1,46 @@
+{{#> index title="Manage Areas"}}
+
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5">
+                    <h2 class="text-center text-underline mb-3">Manage Areas</h2>
+                    {{! Add Area}}
+                    <div class="row row-fluid">
+                        <div class="col-12">
+                            <h2>Add Area</h4>
+                        </div>
+                        <form method="POST" class="row">
+                            <div class="col-12">
+                                <input class="input--style-4" name="areaName" type="text" placeholder="Enter Area Name"
+                                    id="addedAreaName" />
+                            </div>
+                            <input type="hidden" value="addedArea" name="addedArea" />
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Add Area</button>
+                            </div>
+                        </form>
+                    </div>
+                    <br /><br />
+                    {{! Remove Area}}
+                    <div class="row row-fluid">
+                        <div class="col-12">
+                            <h2>Remove Area</h4>
+                        </div>
+                        <form method="POST" class="row">
+                            {{> area_selector Areas=../Areas label=""}}
+
+                            <input type="hidden" value="deletedArea" name="deletedArea" />
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Remove Area</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}

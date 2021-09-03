@@ -1,0 +1,47 @@
+{{#> index title="View Users"}}
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5">
+                    <h2 class="text-center text-underline mb-3">View Users</h2>
+
+                    <div class="table-responsive">
+                        <table class="table table-driver  table-striped ">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Email</th>
+                                    <th class="text-center" colspan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each ../Users}}
+                                <tr>
+                                    <td>{{@index}}</td>
+                                    <td>{{email}}</td>
+                                    <td>
+                                        {{> admin_actions AccountId=userId Status=status }}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" data-toggle="collapse"
+                                            data-target="#collapseUser{{userId}}">View</button>
+                                    </td>
+                                </tr>
+                                <tr id="collapseUser{{userId}}" class="collapse out">
+                                    <td colspan="4">
+                                        {{> user_details this}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/index}}
