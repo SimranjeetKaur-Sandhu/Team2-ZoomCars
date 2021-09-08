@@ -1,0 +1,103 @@
+{{#> index title="Driver Dashboard"}}
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5 py-5 alert-primary border">
+                    <h2 class="text-center text-underline mb-3">My Profile</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="uploads\\{{../User/profileImage}}" alt="Profile Image" width="150"
+                                    height="150" class="mb-3">
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label class="label">Profile Image</label>
+                                <input type="file" class="form-control" name="profileImage">
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label class="label">Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Name..." name="name"
+                                    value="{{../User/name}}" minlength="5" required="required">
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <label class="label">Car Image</label>
+                                <br />
+                                <br />
+                                <div>Current:&nbsp;&nbsp;<img src="uploads\\{{../User/carImage}}" alt="Car Image"
+                                        width="200" height="125" class="mb-3"></div>
+                                <input type="file" class="form-control" name="carImage">
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <input type="tel" class="form-control" placeholder="Enter Mobile Number..."
+                                    name="phoneNumber" value="{{../User/phoneNumber}}" minlength="10" maxlength="10" required="required">
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <label class="label">Car Type</label>
+                                    <select name="carType" class="form-control">
+                                        <option disabled="disabled">Choose Car Type</option>
+                                        {{#each ../Enums/CarTypes}}
+                                        <option value="{{this}}" {{#ifEquals this ../../User/carType}}selected{{/ifEquals}}>{{this}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <label class="label">Car Model</label>
+                                    <input class="input--style-4" type="text" name="carModel"
+                                        value="{{../User/carModel}}" minlength="5" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <label class="label">Car Color</label>
+                                    <input class="input--style-4" type="text" name="carColor"
+                                        value="{{../User/carColor}}" minlength="5" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <label class="label">Car Reg No</label>
+                                    <input class="input--style-4" type="text" name="carRegistrationNumber"
+                                        value="{{../User/carRegistrationNumber}}" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <label class="label">Insurance Car Valid</label>
+                                    <div class="input-group-icon">
+                                        <input type="date" class="form-control input--style-4" name="insuranceValidUpto"
+                                            value="{{../User/insuranceValidUpto}}" min="{{../Tomorrow}}" required="required">
+                                        <!-- <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <div class="input-group">
+                                        <label class="label">Car Capacity</label>
+                                        <input class="input--style-4" type="number" name="carCapacity"
+                                            value="{{../User/carCapacity}}" min="1" max="12" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 form-group">
+                                <label class="label">Driving License Number</label>
+                                <input type="text" class="form-control" name="dlNumber" value="{{../User/dlNumber}}" minlength="5" required="required">
+                            </div>
+                            <div class="col-12 form-group">
+                                <button type="submit" class="btn btn-primary admin_login">Update Profile</button>
+                            </div>
+                        </div>
+                    </form>
+                    {{> errors ErrorMessages=../ErrorMessages}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}

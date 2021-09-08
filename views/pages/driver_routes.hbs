@@ -1,0 +1,107 @@
+{{#> index title="Driver Dashboard"}}
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5">
+                    <h2 class="text-center text-underline mb-3">Set Areas</h2>
+                    {{! Add Area}}
+                    <div class="row row-fluid">
+                        <div class="col-12">
+                            <h4>Add Route</h4>
+                        </div>
+                        <form method="POST">
+                            <div class="row col-12">
+                                {{> area_selector Areas=../Areas namePrefix="source" label="Source"}}
+                            </div>
+                            <div class="row col-12">
+                                {{> area_selector Areas=../Areas namePrefix="target" label="Target"}}
+                            </div>
+                            <div class="row col-12 input-group">
+                                <label class="label">Car Rent ($ per day)</label>
+                                <input class="input--style-4" type="number" name="ratePerDay" min="1" max="10000" required="required">
+                            </div>
+                            <input type="hidden" value="addedRoute" name="addedRoute" />
+                            <button type="submit" class="btn btn-primary">Add Route</button>
+                        </form>
+                        
+                        {{#if ../RouteAdded}}
+                        <div class="col-12">
+                            <div class="alert-info">
+                                <div class="m-2">
+                                    Route added successfully!
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{#if ../AlreadyExists}}
+                        <div class="col-12">
+                            <div class="alert-danger">
+                                <div class="m-2">
+                                    Route already exists!
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{! Remove Area}}
+                    <div class="row row-fluid mt-5">
+                        <div class="col-12">
+                            <h4>Remove Route</h4>
+                        </div>
+                        <form method="POST">
+                            <div class="input-group">
+                                <label for="removedSourceArea">Source Area</label>
+                                <select name="sourceareaId" id="removedSourceArea" class="form-control input--style-4"
+                                    onchange="selectTargetArea()">
+                                    <option disabled="disabled" selected="selected">Choose Area</option>
+                                    {{#each ../Driver/Sources}}
+                                    <option value="{{this.areaId}}">{{this.areaName}}</option>
+                                    {{/each}}
+                                </select>
+                                <label for="removedTargetArea">Target Area</label>
+                                <select name="targetareaId" id="removedTargetArea" class="form-control input--style-4">
+                                    <option disabled="disabled" selected="selected">Choose Area</option>
+                                </select>
+                                <script>
+
+                                    const routes = {{#if ../Driver/Routes}} {{{stringify../ Driver / Routes}}} {{else}} {} {{/if}};
+                                            function selectTargetArea() {
+                                                let $source = $("#removedSourceArea");
+                                                let $target = $("#removedTargetArea");
+                                                if (!$source || !$target) {
+                                                    console.log("No area selector found.");
+                                                    return;
+                                                }
+                                                const sourceId = $source.val();
+                                                $('#removedTargetArea option:gt(0)').remove();
+                                                if (sourceId < 0) return;
+                                                console.log(routes);
+                                                $.each(routes, function (index, value) {
+                                                    if (sourceId != value.SourceArea.areaId) return;
+                                                    $target.append($("<option></option>").attr("value", value.TargetArea.areaId).text(value.TargetArea.areaName));
+                                                })
+                                            };
+                                </script>
+                            </div>
+                            <input type="hidden" value="deletedRoute" name="deletedRoute" />
+                            <button type="submit" class="btn btn-primary">Remove Route</button>
+                        </form>
+                        {{#if ../RouteRemoved}}
+                        <div class="col-12">
+                            <div class="alert-info">
+                                <div class="m-2">
+                                    Route removed successfully!
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{> errors ErrorMessages=../ErrorMessages}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}

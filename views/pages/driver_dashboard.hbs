@@ -1,0 +1,67 @@
+{{#> index title="Driver Dashboard"}}
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5">
+                    <h2 class="text-center text-underline mb-3">Your Orders</h2>
+                    <span class="text-muted">Please mark any bookings you are unable to take. Otherwise, they will be
+                        automatically
+                        rejected after a
+                        certain period of time.</span>
+                    <div class="table-responsive">
+                        <table class="table table-driver table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>User Name</th>
+                                    <th>Booked For Date</th>
+                                    <th>Earnings</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each ../Bookings}}
+                                <tr>
+                                    <td>{{@index}}</td>
+                                    <td>{{this.user.name}}</td>
+                                    <td>{{this.bookingDate}}</td>
+                                    <td>{{this.bill}}$</td>
+                                    <td>{{this.status}}</td>
+                                    <td>
+                                        {{#ifEquals this.status "Pending"}}
+                                        <div class="d-flex flex-row justify-content-around">
+                                            <form class="form-inline" action="/update-booking" method="POST">
+                                                <input type="hidden" value="{{this.bookingId}}" name="bookingId" />
+                                                <input type="hidden" value="Rejected" name="newStatus" />
+                                                <button class="btn btn-danger">Reject</button>
+                                            </form>
+                                            <form class="form-inline" action="/update-booking" method="POST">
+                                                <input type="hidden" value="{{this.bookingId}}" name="bookingId" />
+                                                <input type="hidden" value="Confirmed" name="newStatus" />
+                                                <button class="btn btn-success">Confirm</button>
+                                            </form>
+                                        </div>
+                                        {{/ifEquals}}
+                                        {{#ifEquals this.status "Confirmed"}}
+                                        <form class="form-inline d-flex flex-row justify-content-center"
+                                            action="/update-booking" method="POST">
+                                            <input type="hidden" value="{{this.bookingId}}" name="bookingId" />
+                                            <input type="hidden" value="Closed" name="newStatus" />
+                                            <button class="btn btn-success">Complete Order</button>
+                                        </form>
+                                        {{/ifEquals}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}

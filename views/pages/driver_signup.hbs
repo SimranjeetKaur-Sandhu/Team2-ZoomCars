@@ -1,0 +1,142 @@
+{{#> index title="Driver Signup"}}
+<div class="page-wrapper  p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Driver Sign Up</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Name</label>
+                                <input class="input--style-4" type="text" name="name" value="{{../name}}" minlength="5" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Email</label>
+                                <input class="input--style-4" type="email" name="email" value="{{../email}}" minlength="5" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Password</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 " type="password" name="password"
+                                        value="{{../password}}" minlength="8" required>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Confirm Password</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 " type="password" name="confirmPassword"
+                                        value="{{../confirmPassword}}" minlength="8" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <!-- <div class="select-dropdown"> -->
+                                <select name="carType" value="{{../carType}}" class="form-control" required>
+                                    <option disabled="disabled" selected="selected">Choose Car</option>
+                                    {{#each ../Enums/CarTypes}}
+                                    <option value="{{this}}" {{#ifEquals this ../../carType}}selected{{/ifEquals}}>{{this}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Profile Image</label>
+                                <input type="file" class="form-control-file profile" id="profilimage"
+                                    name="profileImage" required>
+                            </div>
+
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Driving License Number</label>
+                                <input class="input--style-4" type="text" name="dlNumber" value="{{../dlNumber}}" minlength="5" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Phone Number</label>
+                                <input class="input--style-4" type="text" name="phoneNumber" value="{{../phoneNumber}}" minlength="10" maxlength="10" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Car Model</label>
+                                <input class="input--style-4" type="text" name="carModel" value="{{../carModel}}" minlength="5" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Car Color</label>
+                                <input class="input--style-4" type="text" name="carColor" value="{{../carColor}}" minlength="1" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Car Image</label>
+                                <input type="file" class="form-control-file" id="carImage" name="carImage" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Car Reg No</label>
+                                <input class="input--style-4" type="text" name="carRegistrationNumber"
+                                    value="{{../carRegistrationNumber}}" minlength="5" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label class="label">Insurance Car Valid</label>
+                                <div class="input-group-icon">
+                                    <input type="date" class="form-control input--style-4" name="insuranceValidUpto"
+                                        value="{{../insuranceValidUpto}}" required="required" min="{{../Tomorrow}}">
+                                    <!-- <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <label class="label">Car Capacity</label>
+                                    <input class="input--style-4" type="number" name="carCapacity"
+                                        value="{{../carCapacity}}" min="1" max="12" value="1" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+
+                </form>
+                {{> errors ErrorMessages=../ErrorMessages}}
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}
