@@ -1,0 +1,82 @@
+{{#> index title="Search Drivers"}}
+
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-4">
+            <div class="card-body">
+                <div class="container-fluid my-5">
+                    <h2 class="text-center text-underline mb-3">Find Drivers</h2>
+                    {{! Search form}}
+                    <form method="POST" class="mb-5 mx-5">
+                        <div class="row row-fluid">
+                            <div class="col-4 d-flex flex-column justify-content-center">
+                                <div>
+                                    <label for="date">Date</label>
+                                    <input class="form-control input--style-4" type="date" min="{{../Tomorrow}}"
+                                        value="{{ifElse ../date ../Tomorrow}}" name="date" id="date" required="required"/>
+                                </div>
+                            </div>
+                            <div class="col-8 row">
+                                <div class="col-12">
+                                    {{> area_selector Areas=../Areas areaId=../sourceareaId namePrefix="source"
+                                    label="From"}}
+                                </div>
+                                <div class="col-12">
+                                    {{> area_selector Areas=../Areas areaId=../targetareaId namePrefix="target"
+                                    label="To"}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-driver table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Driver Name</th>
+                                    <th>Successful Jobs</th>
+                                    <th>Rate Per Day</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#unless ../FoundRides}}
+                                <tr>
+                                    <td colspan="5" class="danger">No rides found.</td>
+                                </tr>
+                                {{else}}
+                                {{#each ../Drivers}}
+                                <tr>
+                                    <td>{{@index}}</td>
+                                    <td>{{name}}</td>
+                                    <td>{{ClosedBookingCount}}</td>
+                                    <td>{{Route/ratePerDay}}$</td>
+                                    <td>
+                                        <form method="POST" class="form-inline d-flex flex-row justify-content-center"
+                                            action="/make-booking">
+                                            <input type="hidden" value="{{driverId}}" name="driverId" />
+                                            <input type="hidden" value="{{../../date}}" name="date" />
+                                            <input type="hidden" value="{{Route/sourceareaId}}" name="sourceareaId" />
+                                            <input type="hidden" value="{{Route/targetareaId}}" name="targetareaId" />
+                                            <input type="hidden" value="{{Route/ratePerDay}}" name="ratePerDay" />
+                                            <button type="submit" class="btn btn-success">Book!</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{/unless}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/index}}
